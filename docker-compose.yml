@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+    db:
+        build: ./build_files/db
+        volumes:
+            - ./shared/mysql:/var/lib/mysql
+            - ./shared/logs/mysql:/var/log/mysql
+            - ./build_files/db/conf.d:/etc/mysql/conf.d
+        networks:
+            - backend
+        ports:
+            - "${MYSQL_PORT}:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: "${ROOT_PASSWORD}"
+        container_name: "${DB_CONTAINER_NAME}"
+    
+    webserver:
+        build: ./build_files/webserver
+        volumes:
+            - ./shared/webserver/project:/var/www/project
+            - ./shared/logs/webserver:/var/log/apache2/
+            - ./build_files/webserver/sites-enabled:/etc/apache2/sites-enabled
+        networks:
+            - backend
+        ports:
+            - "${WEBSERVER_PORT}:80"
+        container_name: "${WEBSERVER_CONTAINER_NAME}"    
+        
+        
+networks:
+    backend:

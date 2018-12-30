@@ -1,0 +1,1 @@
+FROM flevanti/docker_webserver:u18php73
