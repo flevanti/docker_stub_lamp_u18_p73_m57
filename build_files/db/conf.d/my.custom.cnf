@@ -1,8 +1,3 @@
-[mysql] 
-
-# GENERAL # 
-pid-file = /var/lib/mysql/mysql.pid 
-
 [mysqld] 
 
 collation-server = utf8mb4_general_ci
@@ -37,6 +32,16 @@ innodb-file-per-table = 1
 innodb-buffer-pool-size = 160M 
 
 # LOGGING # 
+log-error=/var/log/mysql/mysql_error.log
+
 log-queries-not-using-indexes = 1 
 slow-query-log = 1 
+slow-query-log-file=/var/log/mysql/mysql-slow.log
+long-query-time=1
+
+#GENERAL LOG CAN BE ENABLE IF NEEDED USING VARIABLES....
+general-log= 0
+general-log-file=/var/log/mysql/mysql.log
+
+
 
