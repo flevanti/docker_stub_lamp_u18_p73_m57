@@ -16,7 +16,14 @@ services:
         container_name: "${DB_CONTAINER_NAME}"
     
     webserver:
-        build: ./build_files/webserver
+        build: 
+            context: ./build_files/webserver
+            #ARGS GETS THE VALUE FROM THE ENV VARIABLES IF SAME NAME..... THEY CAN BE USED IN THE DOCKER FILE IF IMPORTED WITH ARG KEYWORD
+            args:
+                - AWSCLI_ACCESS_KEY
+                - AWSCLI_SECRET_KEY
+                - AWSCLI_DEFAULT_REGION
+                - AWSCLI_OUTPUT_FORMAT
         volumes:
             - ./shared/webserver/project:/var/www/project
             - ./shared/logs/webserver:/var/log/apache2/
